@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading | CORUS</title>
+      <!-- Add Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+        }
+
+        .loading-container {
+           
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+       /* Content Wrapper for Lower Elements */
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 32vh; /* Pushes content lower */
+            position: relative;
+            z-index: 2;
+        }
+        .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;        }
+
+        .logo {
+            width: 140px;
+            height: 140px;
+            background-image: url('assets/images/weblogo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .content-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Brand Name */
+        .brand-name {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Tagline and Percentage Row */
+        .tagline-percentage {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Tagline */
+        .tagline {
+            font-family: rajdhani;
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        /* Percentage */
+        .percentage {
+            font-family: rajdhani;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Content Wrapper for Lower Elements */
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Info Text */
+        .info-text {
+            font-family: rajdhani;
+            text-align: center;
+            font-size: 1rem;
+            color: #939292;
+            letter-spacing: 1px;
+            line-height: 1.6;
+            font-weight: 600;
+            margin-top: 2rem;
+        }
+/* Continue Button */
+.continue-btn {
+    margin-top: 11rem;
+    display: flex;
+    margin-top: 11rem;
+    padding: 12px 40px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: transparent;
+    color: #fff;
+    border: 2px solid #444;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%; /* Add this */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Complete the centering */
+}
+
+.continue-btn.visible {
+    opacity: 1;
+}
+
+.continue-btn:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%) translateY(-2px); /* Maintain centering while adding hover effect */
+}
+
+.continue-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: translate(-50%, -50%); /* Maintain centering when disabled */
+}
+
+.continue-btn:disabled:hover {
+    border-color: #444;
+    background: transparent;
+    transform: translate(-50%, -50%); /* Maintain centering when disabled and hovered */
+}
+
+        /* Sphere Loader Container */
+        .sphere-loader-container {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            zoom: 0.5;
+        }
+
+        .loader {
+            top: calc(50% - 200px);
+            left: calc(50% - 200px);
+            animation: girar 8s linear infinite;
+        }
+
+        .loader,
+        .sphere,
+        .item {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            transform-style: preserve-3d;
+            perspective: 10000px;
+        }
+
+        .sphere,
+        .item {
+            top: 0;
+            left: 0;
+        }
+
+        .sphere {
+            transform: rotate(calc(var(--rot) * 20deg));
+        }
+
+        .sphere1 {
+            --bg: #f008;
+        }
+
+        .sphere2 {
+            --bg: #f0f8;
+        }
+
+        .sphere3 {
+            --bg: #ff08;
+        }
+
+        .sphere4 {
+            --bg: #0f08;
+        }
+
+        .sphere5 {
+            --bg: #0ff8;
+        }
+
+        .sphere6 {
+            --bg: #00f8;
+        }
+
+        .sphere7 {
+            --bg: #dc1ddf88;
+        }
+
+        .sphere8 {
+            --bg: #ffa50088;
+        }
+
+        .sphere9 {
+            --bg: #e5b2ca88;
+        }
+
+        .item {
+            border-radius: 50%;
+            background: var(--bg);
+            transform: rotateY(calc(var(--rot-y) * 40deg));
+        }
+
+        @keyframes girar {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo-content-row {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-container {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .content-column {
+                align-items: center;
+            }
+            
+            .brand-name {
+                font-size: 1.5rem;
+                letter-spacing: 4px;
+            }
+            
+            .sphere-loader-container {
+                zoom: 0.4;
+            }
+            
+            .percentage {
+                font-size: 0.9rem;
+            }
+            
+            .tagline {
+                font-size: 0.9rem;
+                text-align: center;
+            }
+            
+            .tagline-percentage {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .info-text {
+                font-size: 0.8rem;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .brand-name {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+            
+            .sphere-loader-container {
+                zoom: 0.3;
+            }
+            
+            .percentage {
+                font-size: 0.8rem;
+            }
+            
+            .tagline {
+                font-size: 0.8rem;
+            }
+            
+            .continue-btn {
+                padding: 10px 30px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <!-- Sphere Loader -->
+        <div class="sphere-loader-container">
+            <section class="loader">
+                <article style="--rot: 0" class="sphere sphere1">
+                    <div class="item" style="--rot-y: 1"></div>
+                    <div class="item" style="--rot-y: 2"></div>
+                    <div class="item" style="--rot-y: 3"></div>
+                    <div class="item" style="--rot-y: 4"></div>
+                    <div class="item" style="--rot-y: 5"></div>
+                    <div class="item" style="--rot-y: 6"></div>
+                    <div class="item" style="--rot-y: 7"></div>
+                    <div class="item" style="--rot-y: 8"></div>
+                    <div class="item" style="--rot-y: 9"></div>
+                </article>
+                <article style="--rot: 1" class="sphere sphere2">
+                    <div class="item" style="--rot-y: 1"></div>
+                    <div class="item" style="--rot-y: 2"></div>
+                    <div class="item" style="--rot-y: 3"></div>
+                    <div class="item" style="--rot-y: 4"></div>
+                    <div class="item" style="--rot-y: 5"></div>
+                    <div class="item" style="--rot-y: 6"></div>
+                    <div class="item" style="--rot-y: 7"></div>
+                    <div class="item" style="--rot-y: 8"></div>
+                    <div class="item" style="--rot-y: 9"></div>
+                </article>
+                <article style="--rot: 2" class="sphere sphere3">
+                    <div class="item" style="--rot-y: 1"></div>
+                    <div class="item" style="--rot-y: 2"></div>
+                    <div class="item" style="--rot-y: 3"></div>
+                    <div class="item" style="--rot-y: 4"></div>
+                    <div class="item" style="--rot-y: 5"></div>
+                    <div class="item" style="--rot-y: 6"></div>
+                    <div class="item" style="--rot-y: 7"></div>
+                    <div class="item" style="--rot-y: 8"></div>
+                    <div class="item" style="--rot-y: 9"></div>
+                </article>
+                <article style="--rot: 3" class="sphere sphere4">
+                    <div class="item" style="--rot-y: 1"></div>
+                    <div class="item" style="--rot-y: 2"></div>
+                    <div class="item" style="--rot-y: 3"></div>
+                    <div class="item" style="--rot-y: 4"></div>
+                    <div class="item" style="--rot-y: 5"></div>
+                    <div class="item" style="--rot-y: 6"></div>
+                    <div class="item" style="--rot-y: 7"></div>
+                    <div class="item" style="--rot-y: 8"></div>
+                    <div class="item" style="--rot-y: 9"></div>
+                </article>
+                <article style="--rot: 4" class="sphere sphere5">
+                    <div class="item" style="--rot-y: 1"></div>
+                    <div class="item" style="--rot-y: 2"></div>
+                    <div class="item" style="--rot-y: 3"></div>
+                    <div class="item" style="--rot-y: 4"></div>
+                    <div class="item" style="--rot-y: 5"></div>
+                    <div class="item" style="--rot-y: 6"></div>
+                    <div class="item" style="--rot-y: 7"></div>
+                    <div class="item" style="--rot-y: 8"></div>
+                    <div class="item" style="--rot-y: 9"></div>
+                </article>
+                <article style="--rot: 5" class="sphere sphere6">
+                    <div class="item" style="--rot-y: 1"></div>
+                    <div class="item" style="--rot-y: 2"></div>
+                    <div class="item" style="--rot-y: 3"></div>
+                    <div class="item" style="--rot-y: 4"></div>
+                    <div class="item" style="--rot-y: 5"></div>
+                    <div class="item" style="--rot-y: 6"></div>
+                    <div class="item" style="--rot-y: 7"></div>
+                    <div class="item" style="--rot-y: 8"></div>
+                    <div class="item" style="--rot-y: 9"></div>
+                </article>
+                <article style="--rot: 6" class="sphere sphere7">
+                    <div class="item" style="--rot-y: 1"></div>
+                    <div class="item" style="--rot-y: 2"></div>
+                    <div class="item" style="--rot-y: 3"></div>
+                    <div class="item" style="--rot-y: 4"></div>
+                    <div class="item" style="--rot-y: 5"></div>
+                    <div class="item" style="--rot-y: 6"></div>
+                    <div class="item" style="--rot-y: 7"></div>
+                    <div class="item" style="--rot-y: 8"></div>
+                    <div class="item" style="--rot-y: 9"></div>
+                </article>
+                <article style="--rot: 7" class="sphere sphere8">
+                    <div class="item" style="--rot-y: 1"></div>
+                    <div class="item" style="--rot-y: 2"></div>
+                    <div class="item" style="--rot-y: 3"></div>
+                    <div class="item" style="--rot-y: 4"></div>
+                    <div class="item" style="--rot-y: 5"></div>
+                    <div class="item" style="--rot-y: 6"></div>
+                    <div class="item" style="--rot-y: 7"></div>
+                    <div class="item" style="--rot-y: 8"></div>
+                    <div class="item" style="--rot-y: 9"></div>
+                </article>
+                <article style="--rot: 8" class="sphere sphere9">
+                    <div class="item" style="--rot-y: 1"></div>
+                    <div class="item" style="--rot-y: 2"></div>
+                    <div class="item" style="--rot-y: 3"></div>
+                    <div class="item" style="--rot-y: 4"></div>
+                    <div class="item" style="--rot-y: 5"></div>
+                    <div class="item" style="--rot-y: 6"></div>
+                    <div class="item" style="--rot-y: 7"></div>
+                    <div class="item" style="--rot-y: 8"></div>
+                    <div class="item" style="--rot-y: 9"></div>
+                </article>
+            </section>
+        </div>
+
+        <!-- Logo and Content Row -->
+     
+        </div>
+
+        <!-- Content Wrapper for Lower Elements -->
+        <div class="content-wrapper">
+               <div class="logo-content-row">
+            <div class="logo-container">
+                <div class="logo"></div>
+            </div>
+            <div class="content-column">
+                
+                <!-- Tagline and Percentage -->
+                <div class="tagline-percentage">
+                    <div class="tagline">Patience, Cool Stuff Takes Time...</div>
+                    <div class="percentage" id="percentage">0%</div>
+                </div>
+            </div>
+            <!-- Info Text -->
+            <div class="info-text">
+                This site uses music for a better experience.<br>
+                You can disable it at any time using the button in the top corner.
+            </div>
+            
+            <!-- Continue Button -->
+            <button class="continue-btn" id="continueBtn" disabled>
+                Loading...
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Loading Screen Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const percentage = document.getElementById('percentage');
+            const continueBtn = document.getElementById('continueBtn');
+            
+            // Configuration
+            const totalTime = 2000; // 7 seconds
+            const intervalTime = 50; // Update every 50ms
+            const steps = totalTime / intervalTime;
+            let currentStep = 0;
+            let loadingComplete = false;
+            
+            // Start loading animation
+            startLoadingAnimation();
+            
+            function startLoadingAnimation() {
+                const interval = setInterval(() => {
+                    currentStep++;
+                    
+                    // Calculate percentage
+                    const percent = Math.min(100, Math.round((currentStep / steps) * 100));
+                    
+                    // Update percentage
+                    percentage.textContent = `${percent}%`;
+                    
+                    // Check if loading is complete
+                    if (currentStep >= steps) {
+                        clearInterval(interval);
+                        loadingComplete = true;
+                        completeLoading();
+                    }
+                }, intervalTime);
+            }
+            
+            function completeLoading() {
+                // Update final elements
+                continueBtn.disabled = false;
+                continueBtn.textContent = "OK, I UNDERSTAND";
+                continueBtn.classList.add('visible');
+            }
+            
+            // Continue button functionality
+            continueBtn.addEventListener('click', function() {
+                if (loadingComplete) {
+                    // Add exit animation
+                    document.body.style.opacity = '0';
+                    document.body.style.transition = 'opacity 0.5s ease';
+                    
+                    // Redirect to portfolio
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 500);
+                }
+            });
+            
+            // Keyboard shortcut to proceed (for testing)
+            document.addEventListener('keydown', function(e) {
+                if ((e.key === 'Enter' || e.key === ' ') && loadingComplete) {
+                    continueBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
